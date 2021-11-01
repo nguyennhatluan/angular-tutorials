@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
 import { Hero } from '../Hero';
 
 @Component({
@@ -7,19 +8,23 @@ import { Hero } from '../Hero';
   styleUrls: ['./hero-form.component.css']
 })
 export class HeroFormComponent implements OnInit {
-
-  powers = ['Really Smart', 'Super Flexible',
-            'Super Hot', 'Weather Changer'];
-
-  model = new Hero(18, 'Dr IQ', this.powers[0], 'Chuck Overstreet');
-
-  submitted = false;
-
-  onSubmit() { this.submitted = true; }
+  mySubject = new Subject();
 
   constructor() { }
 
   ngOnInit() {
+
+  }
+
+  onEmit(){
+    this.mySubject.next('Emit data');
+  }
+
+  onSubcribe(){
+    console.log('on subscribe');
+    this.mySubject.subscribe(data => {
+      console.log(data);
+    })
   }
 
 }
